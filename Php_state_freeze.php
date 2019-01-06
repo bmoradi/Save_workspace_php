@@ -2,29 +2,44 @@
 /*
  * This class save workspace variable
  */
-Class Save_workspace_php {
+Class Php_state_freeze {
 
-    //name save file
+    //workspace file name location
     private $workspace_name = "workspace.db";
 
-    //this is about location of the save data
-    public $info = "This is for section ...";
+    //This is info about workspace data that saves
+    public $_info = "This is for section ...";
+
+    //This is new array for save cross platform data
+    public $data = [];
 
     //default key that does not save
     private $ignore_array_key_list = array(
         "_GET", "_POST", "_COOKIE", "_FILES", "_SERVER", "argv", "argc" //windows or linux simulation default key
     );
 
-    public function save_workspace(){
+    public function save_workspace(array $input_data){
 
+        //extract data portion
+        foreach($input_data as $key => $val){
+            if( ! in_array($key,$this->ignore_array_key_list)){
+                $this->data[$key] = $val ;
+            }
+        }
+
+        //add info data to array
+        $this->data["_info"] = $this->_info;
+
+        //final state save in file
+        file_put_contents($this->workspace_name, serialize($this->data));
     }
 
     public function restore_workspace(){
-
+        //code
     }
 
     /*
-     * Change location of file save
+     * Change the location of workspace file
      * Return void
      */
     public function set_file_name($file_des){
@@ -64,3 +79,7 @@ Class Save_workspace_php {
     }
 
 }
+
+//var_export
+//$b = var_export($a, true);
+//var_dump($b);
