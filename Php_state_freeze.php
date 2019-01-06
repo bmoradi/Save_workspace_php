@@ -8,16 +8,20 @@ Class Php_state_freeze {
     private $workspace_name = "workspace.db";
 
     //This is info about workspace data that saves
-    public $_info = "This is for section ...";
+    private $_info = "This is for section ...";
 
     //This is new array for save cross platform data
-    public $data = [];
+    private $data = [];
 
     //default key that does not save
     private $ignore_array_key_list = array(
         "_GET", "_POST", "_COOKIE", "_FILES", "_SERVER", "argv", "argc" //windows or linux simulation default key
     );
 
+    /*
+     * This method gather data save data in db format
+     * Return void
+     */
     public function save_workspace(array $input_data){
 
         //extract data portion
@@ -36,7 +40,38 @@ Class Php_state_freeze {
 
     public function restore_workspace(){
         //code
+
+        //return a function to convert db to variable
     }
+	/*
+	 *	This method to set a short informatin  of the workspace
+	 *  Return void
+	 */
+	public function set_info(string $str){
+		
+		$this->_info = $str;
+		
+	}
+	
+	/*
+	 * This method is to get info property of class
+	 * Return _info
+	 */
+	public function get_info()){
+		
+		return $this->_info;
+		
+	}
+		
+	/*
+	 * This method is to get data property of class
+	 * Return data
+	 */
+	public function get_info()){
+		
+		return $this->data;
+		
+	}
 
     /*
      * Change the location of workspace file
@@ -45,6 +80,15 @@ Class Php_state_freeze {
     public function set_file_name($file_des){
 
         $this->workspace_name = $file_des;
+    }
+	
+	 /*
+     * This method is to get location of the workspace file
+     * Return workspace_name
+     */
+    public function set_file_name($file_des){
+
+        return $this->workspace_name;
     }
 
     /*
@@ -79,7 +123,3 @@ Class Php_state_freeze {
     }
 
 }
-
-//var_export
-//$b = var_export($a, true);
-//var_dump($b);
