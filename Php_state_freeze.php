@@ -22,11 +22,11 @@ Class Php_state_freeze {
      * This method gather data save data in db format
      * Return void
      */
-    public function save_workspace(array $input_data){
+    public function save_workspace(array $input_data, string $workspace_obj_name){
 
         //extract data portion
         foreach($input_data as $key => $val){
-            if( ! in_array($key,$this->ignore_array_key_list)){
+            if( ! in_array($key,$this->ignore_array_key_list) || $key != $workspace_obj_name ){
                 $this->data[$key] = serialize($val) ;
             }
         }
@@ -38,19 +38,22 @@ Class Php_state_freeze {
         file_put_contents($this->workspace_name, serialize($this->data));
     }
 
-    public function restore_workspace(){
-        //code
+    /*
+     * This method read workspace file and restore variable from that
+     * Return de-serialized database
+     */
+    public function get_data() {
 
-        //return a function to convert db to variable
+        $database = file_get_contents($this->workspace_name);
+        return unserialize($database);
     }
+
 	/*
-	 *	This method to set a short informatin  of the workspace
-	 *  Return void
+	 * This method to set a short informatin  of the workspace
+	 * Return void
 	 */
 	public function set_info(string $str){
-		
 		$this->_info = $str;
-		
 	}
 	
 	/*
@@ -58,9 +61,7 @@ Class Php_state_freeze {
 	 * Return _info
 	 */
 	public function get_info(){
-		
 		return $this->_info;
-		
 	}
 
     /*
@@ -68,7 +69,6 @@ Class Php_state_freeze {
      * Return void
      */
     public function set_file_name(string $file_des){
-
         $this->workspace_name = $file_des;
     }
 	
@@ -77,7 +77,6 @@ Class Php_state_freeze {
      * Return workspace_name
      */
     public function get_file_name(){
-
         return $this->workspace_name;
     }
 
