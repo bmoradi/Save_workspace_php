@@ -27,12 +27,12 @@ Class Php_state_freeze {
         //extract data portion
         foreach($input_data as $key => $val){
             if( ! in_array($key,$this->ignore_array_key_list)){
-                $this->data[$key] = $val ;
+                $this->data[$key] = serialize($val) ;
             }
         }
 
         //add info data to array
-        $this->data["_info"] = $this->_info;
+        $this->data["_info"] = serialize($this->_info);
 
         //final state save in file
         file_put_contents($this->workspace_name, serialize($this->data));
@@ -57,19 +57,9 @@ Class Php_state_freeze {
 	 * This method is to get info property of class
 	 * Return _info
 	 */
-	public function get_info()){
+	public function get_info(){
 		
 		return $this->_info;
-		
-	}
-		
-	/*
-	 * This method is to get data property of class
-	 * Return data
-	 */
-	public function get_info()){
-		
-		return $this->data;
 		
 	}
 
@@ -77,7 +67,7 @@ Class Php_state_freeze {
      * Change the location of workspace file
      * Return void
      */
-    public function set_file_name($file_des){
+    public function set_file_name(string $file_des){
 
         $this->workspace_name = $file_des;
     }
@@ -86,7 +76,7 @@ Class Php_state_freeze {
      * This method is to get location of the workspace file
      * Return workspace_name
      */
-    public function set_file_name($file_des){
+    public function get_file_name(){
 
         return $this->workspace_name;
     }
