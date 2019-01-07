@@ -30,4 +30,4 @@ foreach($db as $key => $val){
 </pre>
 
 
-<h2>End.</h2>
+<p>End.</p>
