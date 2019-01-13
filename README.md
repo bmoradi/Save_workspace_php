@@ -30,6 +30,6 @@ foreach($db as $key => $val){
 </pre>
 
 <h2>Contact and Feedback</h2>
-<p>If you'd like to contribute to miniProxy or file a bug or feature request, please visit its <a href="https://github.com/bmoradi/Save_workspace_php">GitHub page</a>.
+<p>If you'd like to contribute to save workspace  or file a bug or feature request, please visit its <a href="https://github.com/bmoradi/Save_workspace_php">GitHub page</a>.
 
 </p>
