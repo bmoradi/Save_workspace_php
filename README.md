@@ -6,26 +6,27 @@ Sometimes occured when we need some points, we want stop current execution, and 
 <pre>
 $a = 'ali';
 $b = 5;
-$c=["ali", "reza"];
+$c = [ "ali", "reza" ];
 </pre>
 <p>These three variables we want save and use it another time, we passed object name of workspace to save_workspace method to ignore this object from saving:</p>
 <pre>
 $workspace = new Php_state_freeze();
-$workspace->save_workspace(get_defined_vars(),"workspace");
-unset($a,$b,$c);
+$workspace->save_workspace(get_defined_vars(), "workspace");
+unset($a, $b, $c);
 </pre>
 
 <p>If we want change name of saving workspace file, we call set_file_name method before save_workspace method:</p>
 <pre>
-$workspace->set_file_name("newFileName.db");
+$workspace->set_file_name( "newFileName.db" );
 </pre>
 <p>For restore that variables we need below code:</p>
 <pre>
+
 $db = $workspace->restore_workspace();
 
 foreach($db as $key => $val){
     //this way add a apostrophe to array to remove that
-    ${$key} = unserialize(preg_replace("/'/i", "" ,var_export($val,true)));
+    ${$key} = unserialize(preg_replace("/'/i", "" , var_export($val,true)));
 }
 </pre>
 
